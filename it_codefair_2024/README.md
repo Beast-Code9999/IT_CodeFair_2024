@@ -38,6 +38,8 @@ This command will move the starter code to the **app-example** directory and cre
 
 ## Learn more
 
+1. How to check Expo SDK version (link)[https://www.reddit.com/r/expo/comments/yxrqe1/how_to_check_expo_sdk_version/]
+
 To learn more about developing your project with Expo, look at the following resources:
 
 - [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
