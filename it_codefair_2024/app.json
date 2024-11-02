@@ -5,7 +5,7 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "myapp",
+    "scheme": "cdugram",
     "userInterfaceStyle": "automatic",
     "splash": {
       "image": "./assets/images/splash.png",
@@ -34,6 +34,11 @@
     },
     "dependencies": {
       "lucide-react-native": "*"
+    },
+    "extra": {
+      "router": {
+        "origin": "cdugram://"
+      }
     }
   }
 }

@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Alert } from 'react-native'
+import { StyleSheet, Text, View, Alert, Pressable } from 'react-native'
 import React, { useRef, useState } from 'react'
 import ScreenWrapper from '@/components/ScreenWrapper'
 import Icon from '@/assets/icons'
@@ -9,75 +9,96 @@ import { useRouter } from 'expo-router'
 import { wp, hp } from '@/helpers/common'
 import Input from '@/components/Input'
 import Button from '@/components/Button'
+import { supabase } from '@/lib/supabase'
 
-const login = () => {
-    const router = useRouter();
+const Login = () => {
+
     const emailRef = useRef("");
     const passwordRef = useRef("");
     const [loading, setLoading] = useState(false);
 
-    {/* test onSubmit */}
+    const router = useRouter();
+
     const onSubmit = async () => {
         if (!emailRef.current || !passwordRef.current) {
-            Alert.alert('Login', "Please fill all fields");
+            Alert.alert('Login', "Please fill all the fields!");
             return;
         }
 
-        // will do later, need to implement api
+        let email = emailRef.current.trim();
+        let password = passwordRef.current.trim();
+
+        setLoading(true);
+        const { error } = await supabase.auth.signInWithPassword({
+            email: email,
+            password: password,
+        })
+
+        if (error) Alert.alert('Login', error.message)
+        setLoading(false)
+
+        // setLoading(true);
     }
 
     return (
-        <ScreenWrapper bg="white">
+        <ScreenWrapper bg={'white'}>
             <StatusBar style="dark" />
             <View style={styles.container}>
-                <BackButton router={router} />
-
-                {/* welcome text */}
+                {/* back button */}
                 <View>
-                    <Text style={styles.welcomeText}>Hey,</Text>
-                    <Text style={styles.welcomeText}>Welcome to CDU!</Text>
+                    <BackButton router={router} />
+                </View>
+
+                {/* welcome */}
+                <View>
+                    <Text style={styles.welcomeText}>Hey, </Text>
+                    <Text style={styles.welcomeText}>Welcome Back </Text>
                 </View>
 
                 {/* form */}
                 <View style={styles.form}>
-                    <Text style={{
-                        fontSize: hp(1.5),
-                        color: theme.colors.text,
-                    }}>
+                    <Text style={{ fontSize: hp(1.5), color: theme.colors.text }}>
                         Please login to continue
                     </Text>
-
-                    <Input 
+                    <Input
                         icon={<Icon name="mail" size={26} strokeWidth={1.6} />}
-                        placeholder="Enter your student email"
-                        onChangeText={value=> emailRef.current = value}
+                        placeholder='Enter your email'
+                        placeholderTextColor={theme.colors.textLight}
+                        onChangeText={value => emailRef.current = value}
                     />
-
-                    <Input 
+                    <Input
                         icon={<Icon name="lock" size={26} strokeWidth={1.6} />}
-                        placeholder="Enter your password"
                         secureTextEntry
-                        onChangeText={value=> passwordRef.current = value}
+                        placeholder='Enter your password'
+                        placeholderTextColor={theme.colors.textLight}
+                        onChangeText={value => passwordRef.current = value}
                     />
-
                     <Text style={styles.forgotPassword}>
                         Forgot Password?
                     </Text>
 
-                    <Button
-                        title="Login"
-                        onPress={onSubmit}
-                        loading={loading}
-                    />
+                    {/* button */}
+                    <Button title="Login" loading={loading} onPress={onSubmit} />
                 </View>
+
+                <View style={styles.footer}>
+                    <Text style={styles.footerText}>
+                        Dont't have an account?
+                    </Text>
+                    <Pressable onPress={() => router.navigate('/signup')}>
+                        <Text style={[styles.footerText, { color: "green", fontWeight: "semibold" }]}>Sign up</Text>
+                    </Pressable>
+                </View>
+
             </View>
+
 
         </ScreenWrapper>
 
     )
 }
 
-export default login
+export default Login
 
 const styles = StyleSheet.create({
     container: {
@@ -87,7 +108,7 @@ const styles = StyleSheet.create({
     },
     welcomeText: {
         fontSize: hp(3.8),
-        fontWeight: theme.fonts.bold,
+        fontWeight: "bold",
         color: theme.colors.text,
     },
     form: {
@@ -95,7 +116,7 @@ const styles = StyleSheet.create({
     },
     forgotPassword: {
         textAlign: 'right',
-        fontWeight: theme.fonts.semibold,
+        fontWeight: "semibold",
         color: theme.colors.text
     },
     footer: {

@@ -34,10 +34,10 @@ const welcome = () => {
                         textStyle={{}}
                         title="Get Started"
                         buttonStyle={{ marginHorizontal: wp(3) }}
-                        onPress={() => router.push('login')}
+                        onPress={() => router.push("signup")}
                     />
 
-                    {/* <View style={styles.bottomText}>
+                    <View style={styles.bottomText}>
                     <Text style={{fontSize: hp(1.7)}}>
                         Already have an account?
                     </Text>
@@ -52,7 +52,7 @@ const welcome = () => {
                             Login   
                         </Text>
                     </Pressable>
-                </View>  */}
+                </View> 
                 </View>
             </View>
         </ScreenWrapper>
