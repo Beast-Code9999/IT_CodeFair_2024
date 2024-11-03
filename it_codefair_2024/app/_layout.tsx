@@ -1,18 +1,68 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
-import { Stack } from 'expo-router'
-
+import { View, Text } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { Stack, useRouter } from 'expo-router'
+import { AuthProvider, useAuth } from '../contexts/AuthContext'
+import { supabase } from '../lib/supabase'
+import { getUserData } from '../services/userService'
+import { LogBox } from 'react-native';
+LogBox.ignoreLogs(['Warning: TNodeChildrenRenderer', 'Warning: MemoizedTNodeRenderer', 'Warning: TRenderEngineProvider']); // Ignore log notification by message
 const _layout = () => {
+
   return (
-    <Stack 
+    <AuthProvider>
+      <MainLayout />
+    </AuthProvider>
+
+  )
+}
+
+const MainLayout = () => {
+  const { setAuth, setUserData } = useAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    // triggers automatically when auth state changes
+    supabase.auth.onAuthStateChange((_event, session) => {
+      console.log('session: ', session?.user?.id);
+      if (session) {
+        setAuth(session?.user);
+        updateUserData(session?.user); // update user like image, phone, bio
+        router.replace("/home");
+      } else {
+        setAuth(null);
+        router.replace('/welcome')
+      }
+    })
+  }, []);
+
+  interface User {
+    id: string;
+  }
+
+  interface UserDataResponse {
+    success: boolean;
+    data?: any; // Replace 'any' with the appropriate type if known
+  }
+
+  const updateUserData = async (user: User): Promise<void> => {
+    let res: UserDataResponse = await getUserData(user.id);
+    if (res.success) setUserData(res.data);
+  }
+
+  return (
+    <Stack
       screenOptions={{
-        headerShown: false,
-        title: '/welcome',
+        headerShown: false
       }}
-    />
+    >
+      <Stack.Screen
+        name="(tabs)/postDetails"
+        options={{
+          presentation: 'modal'
+        }}
+      />
+    </Stack>
   )
 }
 
 export default _layout
-
-const styles = StyleSheet.create({})

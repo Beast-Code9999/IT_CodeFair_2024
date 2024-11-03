@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, TextInput } from 'react-native'
 import React from 'react'
-import { theme } from '../constants/theme'
-import { hp } from '../helpers/common'
+import { theme } from '@/constants/theme'
+import { hp } from '@/helpers/common'
 
 import { TextInputProps } from 'react-native';
 
