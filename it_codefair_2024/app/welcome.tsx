@@ -34,14 +34,14 @@ const welcome = () => {
                         textStyle={{}}
                         title="Get Started"
                         buttonStyle={{ marginHorizontal: wp(3) }}
-                        onPress={() => router.push("signup")}
+                        onPress={() => router.push("/signup")}
                     />
 
                     <View style={styles.bottomText}>
                     <Text style={{fontSize: hp(1.7)}}>
                         Already have an account?
                     </Text>
-                    <Pressable>
+                    <Pressable onPress={()=> router.push("/login")}>
                         <Text style={[
                             styles.loginText,
                             { 
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around',
         alignItems: 'center',
         backgroundColor: 'white',
-        paddingHorizontal: wp(4),
+        paddingHorizontal: wp(5),
     },
     welcomeImage: {
         width: wp(80),

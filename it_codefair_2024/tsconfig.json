@@ -12,6 +12,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".expo/types/**/*.ts",
-    "expo-env.d.ts"
-  ]
+    "expo-env.d.ts",
+    "nativewind-env.d.ts"
+, "components/PostCard.jsx", "components/ParallaxScrollView.tsx", "components/RichTextEditor.jsx", "components/ScreenWrapper.jsx", "components/Loading.jsx", "components/Input.tsx", "components/HelloWave.jsx", "components/Header.jsx", "components/ExternalLink.tsx", "components/EditProfileModal.jsx", "components/CommentItem.jsx", "components/Collapsible.tsx", "components/Button.tsx", "components/BackButton.jsx", "components/Avatar.jsx", "components/Video.jsx", "app/(tabs)/home.jsx", "app/(tabs)/newPost.jsx"  ]
 }

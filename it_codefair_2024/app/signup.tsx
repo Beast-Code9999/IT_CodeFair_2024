@@ -81,7 +81,7 @@ const SignUp = () => {
           </Text>
           <Input
             icon={<Icon name="user" size={26} strokeWidth={1.6} />}
-            placeholder='Enter your name'
+            placeholder='Enter your username'
             placeholderTextColor={theme.colors.textLight}
             onChangeText={value=> nameRef.current=value}
           />
