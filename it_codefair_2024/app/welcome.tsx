@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around',
         alignItems: 'center',
         backgroundColor: 'white',
-        paddingHorizontal: wp(4),
+        paddingHorizontal: wp(5),
     },
     welcomeImage: {
         width: wp(80),
