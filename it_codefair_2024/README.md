@@ -1,3 +1,25 @@
+# Errors
+
+1. No +[RCTConvert WKDataDetectorTypes:] function found - dataDetectorTypes prop problem
+
+   ### Solution: 
+   - Go to node_modules\react-native-pell-rich-editor\src\RichEditor.js
+   - Delete the line dataDetectorTypes={'none'} (maybe in line 270)
+   - run ```bash
+      npm i patch-package
+      ```
+   - Go to package.json and add:
+      ```bash
+      "scripts": {
+         "postinstall": "patch-package"
+      }
+      ```
+   - Then run 
+      ```bash
+      npx patch-package react-native-pell-rich-editor
+      ```
+   You will see the folder named 'patches'
+
 # Welcome to your Expo app 👋
 
 This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
